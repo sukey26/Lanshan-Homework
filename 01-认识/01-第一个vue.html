@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <!-- 模板 -->
+  <div id="app">
+    <h1>标题:{{title}}</h1>
+    <ul>
+      <li v-for="(item,i) in products">
+        商品名称:{{item.name}},库存:
+        <button @click="changeStock(item,item.stock-1)">-</button>
+        {{item.stock?item.stock:'无货'}}
+        <button @click="changeStock(item,item.stock+1)">+</button>
+
+        <button @click="remove(i)">删除</button>
+      </li>
+    </ul>
+    <p>
+      总库存：{{total}}
+    </p>
+  </div>
+  <script>
+    let vm = new Vue({
+      el: '#app', // 配置项之间用逗号分隔
+      data: { // 页面中要使用的数据
+        title: "商品管理系统",
+        products: [
+          { name: "iphone", stock: 10 },
+          { name: "xiaomi", stock: 9 },
+          { name: "HUAWEI", stock: 5 },
+          { name: "荣耀", stock: 7 }  // 数组最后一项不要加逗号
+        ]
+      }, // 闭合data对象
+
+      //实现总库存
+      computed: {
+        total() {
+          return this.products.reduce((a, b) => a + b.stock, 0);
+        }
+      },
+
+      //写控制方法，绑定button点击事件
+      methods: {
+        //处理库存售空情况
+        changeStock(products, newStock) {
+          if (newStock < 0) {
+            newStock = 0;
+          }
+          products.stock = newStock;  //数据变化
+        },
+
+        //实现商品删除功能
+        remove(index) {
+          this.products.splice(index, 1);
+        }
+      }
+
+
+
+    }) 
+  </script>
+</body>
+
+</html>

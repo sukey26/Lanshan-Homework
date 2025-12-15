@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+
+    //创建组件
+    //一个组件就是一个对象：但是没有el
+    var myButton = {
+      data() {            //组件里面的data必须是函数，需要返回值
+        return {
+          count: 0,
+        };
+      },
+      template: '<button>当前点击了{{count}}次</button>'   //模板配置
+    };
+
+    //注册组件
+
+
+    //在这个Vue实例里面 需要用el挂载虚拟DOM
+    let vm = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+
+</html>
