@@ -21,16 +21,35 @@
           count: 0,
         };
       },
-      template: '<button>当前点击了{{count}}次</button>'   //模板配置
+      template: `<button @click="count++">
+        当前点击了{{ count }}次
+        </button>` //模板配置
     };
 
+    var title
+
     //注册组件
+    //全局注册
+    // Vue.component("MyButton", myButton);  //前面是组件名称，后面是组件对象
 
 
     //在这个Vue实例里面 需要用el挂载虚拟DOM
     let vm = new Vue({
-      el: '#app',
-    })
+
+      components: {
+        //局部注册组件
+        MyButton: myButton
+      },
+
+      template: `<div>
+        <my-button></my-button>  
+        <my-button></my-button>
+        <my-button></my-button>
+        <MyButton />
+      </div >`,
+    });   //命名的时候使用大驼峰命名法，在模板中使用的时候既可以用小写加连字符，也可以用大驼峰。但是组件必须要有结束
+
+    vm.$mount("#app");
   </script>
 </body>
 
